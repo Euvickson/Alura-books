@@ -9,6 +9,11 @@
 //     .catch(erro => console.log(erro))
 //     .finally(mensagem => console.log("Processamento concluído"));
 
+var cidade = document.getElementById('cidade');
+var logradouro = document.getElementById('endereco');
+var estado = document.getElementById('estado');
+var bairro = document.getElementById('bairro');
+
 async function buscaEndereco(cep) {
     var mensagemErro = document.getElementById('erro');
     mensagemErro.innerHTML = "";
@@ -18,10 +23,6 @@ async function buscaEndereco(cep) {
         if(consultaCepConvertido.erro) {
             throw Error('CEP não existente');
         }
-        var cidade = document.getElementById('cidade');
-        var logradouro = document.getElementById('endereco');
-        var estado = document.getElementById('estado');
-        var bairro = document.getElementById('bairro');
 
         cidade.value = consultaCepConvertido.localidade;
         logradouro.value = consultaCepConvertido.logradouro;
@@ -31,7 +32,10 @@ async function buscaEndereco(cep) {
         console.log(consultaCepConvertido);
         return consultaCepConvertido;
     } catch (erro){
-        console.log(cidade)        
+        cidade.value = null;
+        logradouro.value = null;
+        estado.value = null;
+        bairro.value = null;
         mensagemErro.innerHTML = `<p>CEP inválido. Tente novamente</p>`;
         console.log(erro)
     }
